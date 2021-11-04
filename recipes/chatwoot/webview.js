@@ -1,12 +1,12 @@
-module.exports = Ferdi => {
+module.exports = (Ferdi) => {
   const getMessages = function getMessages() {
-    const unreadBadges = document.querySelectorAll('span.unread');
+    const unreadBadges = document.querySelectorAll("span.unread");
     const unreadBadgesArray = [...unreadBadges];
-    const unreadBadgesValues = unreadBadgesArray.map(unreadBadgesArray =>
-      Number.parseInt(unreadBadgesArray.textContent),
+    const unreadMessagesCount = unreadBadgesArray.reduce(
+      (previousValue, currentBadge) =>
+        previousValue + Ferdi.safeParseInt(currentBadge.textContent),
+      0,
     );
-    const unreadMessagesCount = unreadBadgesValues.reduce((a, b) => a + b);
-
     Ferdi.setBadge(unreadMessagesCount);
   };
 
